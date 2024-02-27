@@ -10,6 +10,7 @@
 #include "G4UImanager.hh"
 #include "G4UItcsh.hh"
 #include "G4VisExecutive.hh"
+#include "G4UIExecutive.hh"
 
 #include "time.h"
 #include <fstream>
@@ -18,22 +19,14 @@
 #include "QGSP_BERT.hh"
 
 int main(int argc, char **argv){
+
+    // Detect interactive mode (if no arguments) and define UI session
+    //
+    G4UIExecutive* ui = nullptr;
+    if ( argc == 1 ) { ui = new G4UIExecutive(argc, argv); }
+    
     long seed = time(0);
     G4Random::setTheSeed(seed);
-
-    //long seed = time(0);
-    //CLHEP::HepRandom::setTheSeed(seed);
-    int runNumber = 0;
-    int NEvents = 0;
-    G4String macroName = "/Users/yuntse/work/coherent/preLArTPC/LArTPCgeant4/run.mac";
-
-    //If the input is valid, set output file name
-    G4String outFile = "out_LArTPC.root";
-
-    NEvents = 10;
-    //NEvents = GetNEvents(macroName);
-
-    std::cout << NEvents << " events to process " << std::endl;
 
     G4RunManager* rm = new G4RunManager();
 
@@ -54,14 +47,20 @@ int main(int argc, char **argv){
     G4VisManager* visManager = new G4VisExecutive();
     visManager->Initialize();
 
-    G4UIsession* session = new G4UIterminal(new G4UItcsh);
-    G4UImanager* UI = G4UImanager::GetUIpointer();
+    G4UImanager* UIm = G4UImanager::GetUIpointer();
 
-    G4String command = "/control/execute ";
-    UI->ApplyCommand(command+macroName);
-    session->SessionStart();
-
-    delete session;
+    if ( !ui ) {
+        // batch mode
+        G4String command = "/control/execute ";
+        G4String macroName = argv[1];
+        UIm->ApplyCommand(command+macroName);
+    }
+    else {
+        // interactive mode
+        UIm->ApplyCommand("/control/execute run.mac");
+        ui->SessionStart();
+        delete ui;
+    }
 
     delete visManager;
     delete rm;
