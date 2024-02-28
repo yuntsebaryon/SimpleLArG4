@@ -25,6 +25,7 @@ void MARLEYGenerator::GeneratePrimaryVertex(G4Event *evt)
   std::vector<double> *pys = 0;
   std::vector<double> *pzs = 0;
 
+  // std::cout << "Event " << idxMARLEY << ", input file: " << infile << std::endl;
   TFile in(infile);
   TTree *t = (TTree*)in.Get("kin");
   t->SetBranchAddress("pdg",&pdgs);
