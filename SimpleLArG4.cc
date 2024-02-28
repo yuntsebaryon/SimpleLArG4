@@ -36,7 +36,7 @@ int main(int argc, char **argv){
     rm->Initialize();
 
     G4VUserPrimaryGeneratorAction* pga = new PrimaryGeneratorAction();
-    RunAction* run = new RunAction();
+    RunAction* run = new RunAction("out.root");
     EventAction* evt = new EventAction(run);
     SteppingAction* step = new SteppingAction(run,evt);
     rm->SetUserAction(pga);

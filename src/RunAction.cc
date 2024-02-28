@@ -12,7 +12,8 @@
 #include <fstream>
 #include <string>
 
-RunAction::RunAction()
+RunAction::RunAction(std::string fout)
+  : fOutName(fout)
 {
   fMessenger = new G4GenericMessenger(this, "/LArG4/output/", "Primary generator control");
   auto& outfileCmd = fMessenger->DeclareProperty("outfile", fOutName, "Name of the output file");
@@ -56,7 +57,8 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
 
 void RunAction::EndOfRunAction(const G4Run* aRun)
 {
-  std::cout << "Ending the run " << std::endl;;
+  std::cout << "Ending the run " << std::endl;
+  // std::cout << "Output file: " << fOutName << std::endl;
   fOutFile = new TFile(fOutName, "recreate");
   fOutFile->cd();
   fEdep->Write("edep");

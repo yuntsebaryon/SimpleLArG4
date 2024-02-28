@@ -16,7 +16,7 @@ class RunAction : public G4UserRunAction
 {
 public:
 
-  RunAction();
+  RunAction(std::string fout);
   ~RunAction();
   
   void BeginOfRunAction(const G4Run*);
