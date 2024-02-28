@@ -35,14 +35,14 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(lartpc lartpc.cc ${sources} ${headers})
+add_executable(SimpleLArG4 SimpleLArG4.cc ${sources} ${headers})
 if(useROOT)
 	EXECUTE_PROCESS(OUTPUT_VARIABLE ROOT_LD_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE COMMAND root-config --libs)
 	set(CMAKE_EXE_LINKER_FLAGS ${ROOT_LD_FLAGS})
 	message(${ROOT_LD_FLAGS})
 endif(useROOT)
 #Edited RR 6 Oct 2017
-target_link_libraries(lartpc ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
+target_link_libraries(SimpleLArG4 ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 #----------------------------------------------------------------------------
 # For internal Geant4 use - but has no effect if you build this example standalone
@@ -52,4 +52,4 @@ target_link_libraries(lartpc ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 #----------------------------------------------------------------------------
 # Install the executable to 'bin' directory under CMAKE_INSTALL_PREFIX
 #
-install(TARGETS lartpc DESTINATION bin)
+install(TARGETS SimpleLArG4 DESTINATION bin)
