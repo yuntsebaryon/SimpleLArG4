@@ -62,7 +62,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 		 endY,
 		 endZ);
 
-
+  /*
   // Drifting charge to channel readout;
   double avgX = 0.5*(startX+endX);
   int iX = (avgX+150.) / (300./nPixPerSide);
@@ -105,7 +105,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
 
     fEvt->AddEDep(iX,iY,iT,dE*frac);
-  }
+  } */
 
 }
 

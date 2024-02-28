@@ -37,7 +37,7 @@ double endZ;
 
 void RunAction::BeginOfRunAction(const G4Run* aRun)
 {
-  std::cout << "Starting MARLEY run " << std::endl;;
+  std::cout << "Starting a run " << std::endl;;
 
   fEdep = new TTree();
   fEdep->Branch("event",&event);
@@ -56,7 +56,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
 
 void RunAction::EndOfRunAction(const G4Run* aRun)
 {
-  std::cout << "Ending MARLEY run " << std::endl;;
+  std::cout << "Ending the run " << std::endl;;
   //TFile *fout = new TFile(fOutName.c_str(),"recreate");
   fOutFile->cd();
   fEdep->Write("edep");

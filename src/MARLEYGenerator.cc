@@ -22,7 +22,7 @@ void MARLEYGenerator::GeneratePrimaryVertex(G4Event *evt)
   std::vector<double> *pys = 0;
   std::vector<double> *pzs = 0;
 
-  TFile in("/Users/yuntse/work/coherent/preLArTPC/LArTPCgeant4/in_MARLEY.root");
+  TFile in("/Users/yuntse/work/coherent/preLArTPC/LArG4/in_MARLEY.root");
   TTree *t = (TTree*)in.Get("kin");
   t->SetBranchAddress("pdg",&pdgs);
   t->SetBranchAddress("E",&Es);

@@ -6,7 +6,7 @@ EventAction::EventAction(RunAction* run)
   : fRun(run)
   , fEvtID(0)
 {
-  fEventRecord = new EventRecord();
+  // fEventRecord = new EventRecord();
 }
 
 EventAction::~EventAction()
@@ -14,15 +14,15 @@ EventAction::~EventAction()
 
 void EventAction::BeginOfEventAction(const G4Event* evt)
 {
-  fEventRecord = new EventRecord();
-
+  // fEventRecord = new EventRecord();
+  /*
   for (int iX = 0; iX < nPixPerSide; iX++){
     for (int iY = 0; iY < nPixPerSide; iY++){
       for (int iZ = 0; iZ < nSamplesPerDrift; iZ++){
 	fEDep[iX][iY][iZ] = 0;
       }
     }
-  }
+  } */
 
   fEvtID = evt->GetEventID();
 }
