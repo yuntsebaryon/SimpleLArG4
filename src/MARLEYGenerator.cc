@@ -2,6 +2,7 @@
 #include "G4PrimaryVertex.hh"
 #include "G4PrimaryParticle.hh"
 
+
 #include "TRandom.h"
 #include "TFile.h"
 #include "TTree.h"
@@ -9,10 +10,12 @@
 MARLEYGenerator::MARLEYGenerator()
 {
   idxMARLEY = 0;
+  fMessenger = new G4GenericMessenger(this, "/LArG4/generator/", "Primary generator control");
+  auto& infileCmd = fMessenger->DeclareProperty("infile", infile, "Name of the input file");
 }
 
 MARLEYGenerator::~MARLEYGenerator()
-{}
+{ delete fMessenger; }
 
 void MARLEYGenerator::GeneratePrimaryVertex(G4Event *evt)
 {
@@ -22,7 +25,7 @@ void MARLEYGenerator::GeneratePrimaryVertex(G4Event *evt)
   std::vector<double> *pys = 0;
   std::vector<double> *pzs = 0;
 
-  TFile in("/Users/yuntse/work/coherent/preLArTPC/LArG4/in_MARLEY.root");
+  TFile in(infile);
   TTree *t = (TTree*)in.Get("kin");
   t->SetBranchAddress("pdg",&pdgs);
   t->SetBranchAddress("E",&Es);

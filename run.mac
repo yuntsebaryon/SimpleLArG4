@@ -1,1 +1,3 @@
-/run/beamOn 10000
+/LArG4/generator/infile /Users/yuntse/data/coherent/preLArTPC/marley/2024/nueArCC_sns_xDir.root
+/LArG4/output/outfile /Users/yuntse/work/coherent/preLArTPC/LArG4/build/nueArCC_sns_xDir_g4.root
+/run/beamOn 10

@@ -12,15 +12,15 @@
 #include <fstream>
 #include <string>
 
-RunAction::RunAction(std::string fout)
-  : fOutName(fout)
+RunAction::RunAction()
 {
-  fOutFile = new TFile(fout.c_str(),"recreate");
+  fMessenger = new G4GenericMessenger(this, "/LArG4/output/", "Primary generator control");
+  auto& outfileCmd = fMessenger->DeclareProperty("outfile", fOutName, "Name of the output file");
   fEventRecords = {};
-  //fEdep = new TTree();
+  //fEdep = new TTree();  
 }
 
-RunAction::~RunAction(){}
+RunAction::~RunAction(){ delete fMessenger; }
 
 int event;
 int pdg;
@@ -57,7 +57,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
 void RunAction::EndOfRunAction(const G4Run* aRun)
 {
   std::cout << "Ending the run " << std::endl;;
-  //TFile *fout = new TFile(fOutName.c_str(),"recreate");
+  fOutFile = new TFile(fOutName, "recreate");
   fOutFile->cd();
   fEdep->Write("edep");
   /*

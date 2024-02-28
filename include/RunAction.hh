@@ -1,10 +1,10 @@
 #ifndef RunAction_h
 #define RunAction_h 1
 
+#include "G4GenericMessenger.hh"
 #include "G4UserRunAction.hh"
 #include "globals.hh"
 #include "G4String.hh"
-#include <string>
 
 #include "EventRecord.hh"
 
@@ -16,7 +16,7 @@ class RunAction : public G4UserRunAction
 {
 public:
 
-  RunAction(std::string fout);
+  RunAction();
   ~RunAction();
   
   void BeginOfRunAction(const G4Run*);
@@ -26,7 +26,8 @@ public:
   void AddEventRecord(EventRecord *er);
 
 private:
-  std::string fOutName;
+  G4GenericMessenger* fMessenger = nullptr;
+  G4String fOutName;
   TFile *fOutFile;
   TTree *fEdep;
   std::vector<EventRecord*> fEventRecords;
