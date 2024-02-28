@@ -2,7 +2,15 @@ SimpleLArG4
 ===========
 
 Based on Dan Pershay's code, I decoupled the particle propogation in materials (GEANT4) and the detector readout simulation.
-Currently I am making the input primary particle format more generic.
+
+The current detector geometry is described as
+  - Center: (0, 0, 0)cm
+  - Vacuum: a sphere with the radius of 30m
+  - LAr: a cube with (400cm)<sup>3</sup> with the center above
+
+Currently only the ROOT file format produced with `macros/MARLEYToROOT.C` is supported as the input file format, through the `MARLEYGenerator` class.  I am planning to make the input more generic (to include cosmic ray background as the first step).
+
+The neutrino interaction vertex is now hardcoded at (x, y, z) = (0, 0, 0), and the plan is to make it configurable.
 
 ### Installation
 
