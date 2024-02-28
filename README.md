@@ -30,3 +30,7 @@ Note the MARLEY ROOT format and the plain ROOT format MARLEY offers through `mar
 root -l
 .x MARLEYToROOT.C("/Users/yuntse/data/coherent/preLArTPC/marley/2024/nueArCC_sns_xDir.ascii", "nueArCC_sns_xDir.root")
 ```
+
+Configure the input and output files in `run.mac`,
+> /LArG4/generator/infile <input file path/name> \
+> /LArG4/output/outfile <output file path/name>
