@@ -15,11 +15,6 @@ public:
   G4VPhysicalVolume* Construct();
 
 private:
-  // logical volume for world
-  G4LogicalVolume* logical_world;
-
-  // physical volume for world
-  G4VPhysicalVolume* physical_world;
 
 };
 

@@ -35,7 +35,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
   G4NistManager* man = G4NistManager::Instance();
   G4Material* Air = man->FindOrBuildMaterial("G4_AIR");
-
+  G4Material* Concrete = man->FindOrBuildMaterial("G4_CONCRETE");
 
   // vacuum as a material
   G4Material* Vac = nist->FindOrBuildMaterial("G4_Galactic");
@@ -57,7 +57,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
 
   G4LogicalVolume* logical_world = new G4LogicalVolume(solid_world, Vac, "logical_vol_world", 0,0,0);
-  G4VPhysicalVolume* physical_world = new G4PVPlacement(0,G4ThreeVector(0,0,0),logical_world, "physical_vol_world", 0, false, 0);
+  G4VPhysicalVolume* physical_world = new G4PVPlacement(0, G4ThreeVector(0,0,0), logical_world, "physical_vol_world", 0, false, 0);
 
   logical_world->SetVisAttributes(G4VisAttributes::GetInvisible());
 
@@ -79,13 +79,30 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   ar->AddElement(ar38,fractionmass=0.0629*perCent);
   ar->AddElement(ar40,fractionmass=99.6035*perCent);
 
-  G4double larDriftx = 400.*cm;
-  G4double larDrifty = 400.*cm;
-  G4double larDriftz = 400.*cm;
+  G4double larRadius = 46.*cm;
+  G4double larH      = 61.*cm;
 
-  G4Box* solid_larDrift = new G4Box("larDrift_box", larDriftx, larDrifty, larDriftz);
-  G4LogicalVolume* logical_larDrift = new G4LogicalVolume(solid_larDrift,ar,"logical_vol_larDrift", 0,0,0);
-  G4VPhysicalVolume* LArTPC = new G4PVPlacement(0,G4ThreeVector(0.,0.,0.),logical_larDrift,"physical_vol_larDrift",logical_world,false,0);
+  G4Tubs* solid_lar = new G4Tubs("lar_volume", 0., larRadius, larH, 0., CLHEP::twopi);
+  G4LogicalVolume* logical_lar = new G4LogicalVolume(solid_lar, ar, "logical_vol_lar", 0,0,0);
+  G4VPhysicalVolume* LAr = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logical_lar, "physical_vol_lar", logical_world, false, 0);
+
+  // Active volume of LArTPC
+  G4double larX     = 25.*cm;
+  G4double larY     = 30.*cm;
+  G4double larZ     = 30.*cm;
+
+  G4Box* solid_lartpc = new G4Box("lartpc_volume", larX, larY, larZ);
+  G4LogicalVolume* logical_lartpc = new G4LogicalVolume(solid_lartpc, ar, "logical_vol_lartpc", 0, 0, 0);
+  G4VPhysicalVolume* LArTPC = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logical_lartpc, "physical_vol_lartpc", logical_world, false, 0);
+
+  // The concrete overburden
+  G4double concreteX = 10.*m;
+  G4double concreteY = 10.*m;
+  G4double concreteZ = 2.2*m;
+
+  G4Box* solid_concrete = new G4Box("concrete_volume", concreteX, concreteY, concreteZ);
+  G4LogicalVolume* logical_concrete = new G4LogicalVolume(solid_concrete, Concrete, "logical_vol_concrete", 0, 0, 0);
+  G4VPhysicalVolume* overburden = new G4PVPlacement(0, G4ThreeVector(0., 0., 4.8*m), logical_concrete, "physical_vol_concrete", logical_world, false, 0);
 
   return physical_world;
 }
