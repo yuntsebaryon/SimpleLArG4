@@ -7,12 +7,12 @@
 
 PrimaryGeneratorAction::PrimaryGeneratorAction(){
 
-   marley = new MARLEYGenerator();
+   cosmic = new CosmicGenerator();
 }
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction(){
 
-    delete marley;
+    delete cosmic;
 }
 
 #include "G4Event.hh"
@@ -20,5 +20,5 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction(){
 #include "CLHEP/Random/RandomEngine.h"
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent){
-  marley->GeneratePrimaryVertex(anEvent);
+  cosmic->GeneratePrimaryVertex(anEvent);
 }

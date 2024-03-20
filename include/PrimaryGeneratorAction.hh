@@ -2,7 +2,8 @@
 #define PrimaryGeneratorAction_hh 1
 
 #include "G4VUserPrimaryGeneratorAction.hh"
-#include "MARLEYGenerator.hh"
+// #include "MARLEYGenerator.hh"
+#include "CosmicGenerator.hh"
 
 class G4GeneralParticleSource;
 
@@ -21,7 +22,7 @@ public:
 
 private:
 
-  MARLEYGenerator* marley;
+  CosmicGenerator* cosmic;
 
 };
 
