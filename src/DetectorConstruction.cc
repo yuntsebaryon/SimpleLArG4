@@ -87,8 +87,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   G4VPhysicalVolume* LAr = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.), logical_lar, "physical_vol_lar", logical_world, false, 0);
 
   // Active volume of LArTPC
-  G4double larX     = 25.*cm;
-  G4double larY     = 30.*cm;
+  G4double larX     = 30.*cm;
+  G4double larY     = 25.*cm;
   G4double larZ     = 30.*cm;
 
   G4Box* solid_lartpc = new G4Box("lartpc_volume", larX, larY, larZ);
