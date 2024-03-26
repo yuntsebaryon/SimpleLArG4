@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "MARLEYGenerator.hh"
 #include "G4PrimaryVertex.hh"
 #include "G4PrimaryParticle.hh"
@@ -36,9 +38,17 @@ void MARLEYGenerator::GeneratePrimaryVertex(G4Event *evt)
 
   t->GetEntry(idxMARLEY);
 
-  double vtxx = gRandom->Uniform(-25., 25.);
-  double vtxy = gRandom->Uniform(-20., 20.);
-  double vtxz = gRandom->Uniform(-25., 25.);
+  double vtxx = gRandom->Uniform(-46., 46.);
+  double vtxy = gRandom->Uniform(-46., 46.);
+  double vtxz = gRandom->Uniform(-60., 60.);
+  double vtxr = std::sqrt( vtxx*vtxx + vtxy*vtxy );
+
+  do {
+    vtxx = gRandom->Uniform(-46., 46.);
+    vtxy = gRandom->Uniform(-46., 46.);
+    vtxz = gRandom->Uniform(-60., 60.);
+    vtxr = std::sqrt( vtxx*vtxx + vtxy*vtxy );
+  } while ( vtxr > 46. || ((std::abs(vtxx) < 25.) && (std::abs(vtxy) < 20.) && (std::abs(vtxz) < 25.)) );
 
   G4ThreeVector vtx(vtxx*CLHEP::cm,vtxy*CLHEP::cm,vtxz*CLHEP::cm);
   //G4ThreeVector vtx(15*CLHEP::cm,15*CLHEP::cm,15*CLHEP::cm);
