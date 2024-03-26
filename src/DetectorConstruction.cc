@@ -80,7 +80,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   ar->AddElement(ar40,fractionmass=99.6035*perCent);
 
   G4double larRadius = 46.*cm;
-  G4double larH      = 61.*cm;
+  G4double larH      = 60.*cm;
 
   G4Tubs* solid_lar = new G4Tubs("lar_volume", 0., larRadius, larH, 0., CLHEP::twopi);
   G4LogicalVolume* logical_lar = new G4LogicalVolume(solid_lar, ar, "logical_vol_lar", 0,0,0);
