@@ -36,9 +36,9 @@ void MARLEYGenerator::GeneratePrimaryVertex(G4Event *evt)
 
   t->GetEntry(idxMARLEY);
 
-  double vtxx = gRandom->Uniform(-30., 30.);
-  double vtxy = gRandom->Uniform(-25., 25.);
-  double vtxz = gRandom->Uniform(-30., 30.);
+  double vtxx = gRandom->Uniform(-25., 25.);
+  double vtxy = gRandom->Uniform(-20., 20.);
+  double vtxz = gRandom->Uniform(-25., 25.);
 
   G4ThreeVector vtx(vtxx*CLHEP::cm,vtxy*CLHEP::cm,vtxz*CLHEP::cm);
   //G4ThreeVector vtx(15*CLHEP::cm,15*CLHEP::cm,15*CLHEP::cm);
