@@ -41,8 +41,8 @@ void CosmicGenerator::GeneratePrimaryVertex(G4Event *evt)
     double vtxx = gRandom->Uniform(-500, 500);
     double vtxy = gRandom->Uniform(-500, 500);
     double vtxz = 700;
-    vtxx = 0.;
-    vtxy = 0.;
+    // vtxx = 0.;
+    // vtxy = 0.;
 
     G4ThreeVector vtx( vtxx*CLHEP::cm, vtxy*CLHEP::cm, vtxz*CLHEP::cm );
     //G4ThreeVector vtx(15*CLHEP::cm,15*CLHEP::cm,15*CLHEP::cm);
