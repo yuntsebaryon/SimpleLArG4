@@ -102,7 +102,32 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
 
   G4Box* solid_concrete = new G4Box("concrete_volume", concreteX, concreteY, concreteZ);
   G4LogicalVolume* logical_concrete = new G4LogicalVolume(solid_concrete, Concrete, "logical_vol_concrete", 0, 0, 0);
-  G4VPhysicalVolume* overburden = new G4PVPlacement(0, G4ThreeVector(0., 0., 4.8*m), logical_concrete, "physical_vol_concrete", logical_world, false, 0);
+  G4VPhysicalVolume* overburden = new G4PVPlacement(0, G4ThreeVector(0., 0., 4.8*m), logical_concrete, "physical_vol_concrete", 
+                                      logical_world, false, 0);
+
+  // The concrete wall downstream
+  G4double concreteWallX = 10.*m;
+  G4double concreteWallY = 1.*m;
+  G4double concreteWallZ = 1.3*m;
+
+  G4Box* solid_concrete_downstream = new G4Box("concrete_downstream_volume", concreteWallX, concreteWallY, concreteWallZ);
+  G4LogicalVolume* logical_concrete_downstream = new G4LogicalVolume(solid_concrete_downstream, Concrete, 
+                                                  "logical_vol_concrete_downstream", 0, 0, 0);
+  G4VPhysicalVolume* wall_downstream = new G4PVPlacement(0, G4ThreeVector(0., 1.6*m, 1.3*m), logical_concrete_downstream, 
+                                                  "physical_vol_concrete_downstream", logical_world, false, 0);
+
+  // The concrete wall upstream
+  G4Box* solid_concrete_upstream = new G4Box("concrete_upstream_volume", concreteWallX, concreteWallY, concreteWallZ);
+  G4LogicalVolume* logical_concrete_upstream = new G4LogicalVolume(solid_concrete_upstream, Concrete,
+                                                 "logical_vol_concrete_upstream", 0, 0, 0);
+  G4VPhysicalVolume* wall_upstream = new G4PVPlacement(0, G4ThreeVector(0., -2.7*m, 1.3*m), logical_concrete_upstream,
+                                          "physical_vol_concrete_upstream", logical_world, false, 0);
+
+  // The concrete floor
+  G4Box* solid_concrete_floor = new G4Box("concrete_floor_volume", concreteX, concreteY, concreteZ);
+  G4LogicalVolume* logical_concrete_floor = new G4LogicalVolume(solid_concrete_floor, Concrete, "logical_vol_concrete_floor", 0, 0, 0);
+  G4VPhysicalVolume* floor = new G4PVPlacement(0, G4ThreeVector(0., 0., -2.8*m), logical_concrete_floor, 
+                                "physical_vol_concrete_floor", logical_world, false, 0);
 
   return physical_world;
 }
