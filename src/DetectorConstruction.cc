@@ -108,26 +108,83 @@ G4VPhysicalVolume* DetectorConstruction::Construct(){
   // The concrete wall downstream
   G4double concreteWallX = 10.*m;
   G4double concreteWallY = 1.*m;
-  G4double concreteWallZ = 1.3*m;
+  G4double concreteWallZ = 162*cm;
 
   G4Box* solid_concrete_downstream = new G4Box("concrete_downstream_volume", concreteWallX, concreteWallY, concreteWallZ);
   G4LogicalVolume* logical_concrete_downstream = new G4LogicalVolume(solid_concrete_downstream, Concrete, 
                                                   "logical_vol_concrete_downstream", 0, 0, 0);
-  G4VPhysicalVolume* wall_downstream = new G4PVPlacement(0, G4ThreeVector(0., 1.6*m, 1.3*m), logical_concrete_downstream, 
+  G4VPhysicalVolume* wall_downstream = new G4PVPlacement(0, G4ThreeVector(0., 1.6*m, 98*cm), logical_concrete_downstream, 
                                                   "physical_vol_concrete_downstream", logical_world, false, 0);
 
   // The concrete wall upstream
   G4Box* solid_concrete_upstream = new G4Box("concrete_upstream_volume", concreteWallX, concreteWallY, concreteWallZ);
   G4LogicalVolume* logical_concrete_upstream = new G4LogicalVolume(solid_concrete_upstream, Concrete,
                                                  "logical_vol_concrete_upstream", 0, 0, 0);
-  G4VPhysicalVolume* wall_upstream = new G4PVPlacement(0, G4ThreeVector(0., -2.7*m, 1.3*m), logical_concrete_upstream,
+  G4VPhysicalVolume* wall_upstream = new G4PVPlacement(0, G4ThreeVector(0., -2.7*m, 98*cm), logical_concrete_upstream,
                                           "physical_vol_concrete_upstream", logical_world, false, 0);
 
   // The concrete floor
   G4Box* solid_concrete_floor = new G4Box("concrete_floor_volume", concreteX, concreteY, concreteZ);
   G4LogicalVolume* logical_concrete_floor = new G4LogicalVolume(solid_concrete_floor, Concrete, "logical_vol_concrete_floor", 0, 0, 0);
-  G4VPhysicalVolume* floor = new G4PVPlacement(0, G4ThreeVector(0., 0., -2.8*m), logical_concrete_floor, 
+  G4VPhysicalVolume* floor = new G4PVPlacement(0, G4ThreeVector(0., 0., -284*cm), logical_concrete_floor, 
                                 "physical_vol_concrete_floor", logical_world, false, 0);
+
+  // Cosmic ray tagger
+  G4Element* elH = new G4Element("Hydrogen", "H", z = 1., a = 1.01*g/mole);
+  G4Element* elC = new G4Element("Carbon", "C", z = 6., a = 12.01*g/mole);
+  G4Material* Polystyrene = new G4Material("Polystyrene", density = 1.06*g/cm3, ncomponents = 2);
+  Polystyrene->AddElement(elH, fractionmass = 0.077418);
+  Polystyrene->AddElement(elC, fractionmass = 0.922582); 
+
+  // Top and bottom panel dimension
+  G4double crtTopX = 50.*cm;
+  G4double crtTopY = 50.*cm;
+  G4double crtTopZ = 1.5*cm;
+
+  // Top panel
+  G4Box* solid_crt_top = new G4Box("crt_top_volume", crtTopX, crtTopY, crtTopZ);
+  G4LogicalVolume* logical_crt_top = new G4LogicalVolume(solid_crt_top, Polystyrene, "logical_vol_crt_top", 0, 0, 0);
+  G4VPhysicalVolume* crt_top = new G4PVPlacement(0, G4ThreeVector(0., 0., 62.*cm), logical_crt_top, "physical_vol_crt_top", logical_world, false, 0);
+
+  // Bottom panel
+  G4Box* solid_crt_bottom = new G4Box("crt_bottom_volume", crtTopX, crtTopY, crtTopZ);
+  G4LogicalVolume* logical_crt_bottom = new G4LogicalVolume(solid_crt_bottom, Polystyrene, "logical_vol_crt_bottom", 0, 0, 0);
+  G4VPhysicalVolume* crt_bottom = new G4PVPlacement(0, G4ThreeVector(0., 0., -62.*cm), logical_crt_bottom, 
+                                       "physical_vol_crt_bottom", logical_world, false, 0);
+
+  // Front and back panel dimension
+  G4double crtFrontX = 50.*cm;
+  G4double crtFrontY = 1.5*cm;
+  G4double crtFrontZ = 60.*cm;
+
+  // Front panel
+  G4Box* solid_crt_front = new G4Box("crt_front_volume", crtFrontX, crtFrontY, crtFrontZ);
+  G4LogicalVolume* logical_crt_front = new G4LogicalVolume(solid_crt_front, Polystyrene, "logical_vol_crt_front", 0, 0, 0);
+  G4VPhysicalVolume* crt_front = new G4PVPlacement(0, G4ThreeVector(0., -52.*cm, 0.), logical_crt_front, 
+                                      "physical_vol_crt_front", logical_world, false, 0);
+
+  // Back panel
+  G4Box* solid_crt_back = new G4Box("crt_back_volume", crtFrontX, crtFrontY, crtFrontZ);
+  G4LogicalVolume* logical_crt_back = new G4LogicalVolume(solid_crt_back, Polystyrene, "logical_vol_crt_back", 0, 0, 0);
+  G4VPhysicalVolume* crt_back = new G4PVPlacement(0, G4ThreeVector(0., 52.*cm, 0.), logical_crt_back, 
+                                     "physical_vol_crt_back", logical_world, false, 0);
+
+  // Side panels
+  G4double crtSideX = 1.5*cm;
+  G4double crtSideY = 50.*cm;
+  G4double crtSideZ = 60.*cm;
+
+  // Right panel
+  G4Box* solid_crt_right = new G4Box("crt_right_volume", crtSideX, crtSideY, crtSideZ);
+  G4LogicalVolume* logical_crt_right = new G4LogicalVolume(solid_crt_right, Polystyrene, "logical_vol_crt_right", 0, 0, 0);
+  G4VPhysicalVolume* crt_right = new G4PVPlacement(0, G4ThreeVector(52.*cm, 0., 0.), logical_crt_right, 
+                                      "physical_vol_crt_right", logical_world, false, 0);
+
+  // Left panel
+  G4Box* solid_crt_left = new G4Box("crt_left_volume", crtSideX, crtSideY, crtSideZ);
+  G4LogicalVolume* logical_crt_left = new G4LogicalVolume(solid_crt_left, Polystyrene, "logical_vol_crt_left", 0, 0, 0);
+  G4VPhysicalVolume* crt_left = new G4PVPlacement(0, G4ThreeVector(-52.*cm, 0., 0.), logical_crt_left, 
+                                     "physical_vol_crt_left", logical_world, false, 0);
 
   return physical_world;
 }
