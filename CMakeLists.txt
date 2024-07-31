@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(LArG4)
 set(useROOT true)
 find_package(ROOT)
-include_directories(/Users/yuntse/opt/root-master/include) 
+include_directories(/Users/yuntse/opt/root-v6.32.00/include) 
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
