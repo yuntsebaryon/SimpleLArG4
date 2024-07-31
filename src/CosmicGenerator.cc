@@ -38,11 +38,10 @@ void CosmicGenerator::GeneratePrimaryVertex(G4Event *evt)
 
   for (int i = 0; i < int(pdgs->size()); i++){
     
-    double vtxx = gRandom->Uniform(-500, 500);
-    double vtxy = gRandom->Uniform(-500, 500);
-    double vtxz = 700;
-    // vtxx = 0.;
-    // vtxy = 0.;
+    double vtxx = gRandom->Uniform(-46., 46.);
+    double vtxy = gRandom->Uniform(-46., -46.);
+    double vtxz = gRandom->Uniform(-60., 60.);
+    double vtxr = std::sqrt( vtxx*vtxx + vtxy*vtxy );
 
     G4ThreeVector vtx( vtxx*CLHEP::cm, vtxy*CLHEP::cm, vtxz*CLHEP::cm );
     //G4ThreeVector vtx(15*CLHEP::cm,15*CLHEP::cm,15*CLHEP::cm);
@@ -52,7 +51,7 @@ void CosmicGenerator::GeneratePrimaryVertex(G4Event *evt)
     
 
     std::cout << "Starting a particle " << pdgs->at(i) << "  " << Es->at(i) << std::endl;
-    G4PrimaryParticle *initPart = new G4PrimaryParticle(pdgs->at(i), pxs->at(i)*CLHEP::GeV, pys->at(i)*CLHEP::GeV, pzs->at(i)*CLHEP::GeV);
+    G4PrimaryParticle *initPart = new G4PrimaryParticle(pdgs->at(i), pxs->at(i)*CLHEP::MeV, pys->at(i)*CLHEP::MeV, pzs->at(i)*CLHEP::MeV);
     /*
       int pdg = pdgs->at(i);
       if (pdg==22) particle_definition = G4Gamma::GammaDefinition();
