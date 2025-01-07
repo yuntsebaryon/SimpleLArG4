@@ -22,7 +22,10 @@ public:
   void BeginOfRunAction(const G4Run*);
   void EndOfRunAction(const G4Run*);
 
-  void FillTree(int cevent, int cpdg, int ctrackID, int cmotherID, double cstartE, double cdE, double cstartX, double cstartY, double cstartZ, double cendX, double cendY, double cendZ);
+  void FillTree(int cevent, int cpdg, int ctrackID, int cmotherID, double cstartE, double cdE, double cstartX, double cstartY, double cstartZ, double cendX, double cendY, double cendZ, G4String const& cstartProcessName,
+       int cstartProcessType,
+       G4String const& cendProcessName,
+       int cendProcessType);
   void AddEventRecord(EventRecord *er);
 
 private:

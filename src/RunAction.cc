@@ -35,6 +35,10 @@ double startZ;
 double endX;
 double endY;
 double endZ;
+std::string startProcessName;
+int startProcessType;
+std::string endProcessName;
+int endProcessType;
 
 void RunAction::BeginOfRunAction(const G4Run* aRun)
 {
@@ -53,6 +57,10 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
   fEdep->Branch("endX",&endX);
   fEdep->Branch("endY",&endY);
   fEdep->Branch("endZ",&endZ);
+  fEdep->Branch("startProcessName", &startProcessName);
+  fEdep->Branch("startProcessType", &startProcessType);
+  fEdep->Branch("endProcessName", &endProcessName);
+  fEdep->Branch("endProcessType", &endProcessType);
 }
 
 void RunAction::EndOfRunAction(const G4Run* aRun)
@@ -87,7 +95,11 @@ void RunAction::FillTree(int cevent,
 			 double cstartZ,
 			 double cendX,
 			 double cendY,
-			 double cendZ)
+			 double cendZ,
+       G4String const& cstartProcessName,
+       int cstartProcessType,
+       G4String const& cendProcessName,
+       int cendProcessType)
 {
   event = cevent;
   pdg = cpdg;
@@ -101,6 +113,10 @@ void RunAction::FillTree(int cevent,
   endX = cendX;
   endY = cendY;
   endZ = cendZ;
+  startProcessName = cstartProcessName;
+  startProcessType = cstartProcessType;
+  endProcessName = cendProcessName;
+  endProcessType = cendProcessType;
 
   fEdep->Fill();
 }

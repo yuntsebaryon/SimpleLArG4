@@ -12,6 +12,8 @@
 
 using namespace CLHEP;
 
+G4String const NoProcess = "";
+
 SteppingAction::SteppingAction (RunAction* run, EventAction *evt)
   : fRun(run)
   , fEvt(evt)
@@ -30,12 +32,18 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   double startY = startXYZ[1];
   double startZ = startXYZ[2];
   double startE = start->GetTotalEnergy();
+  G4VProcess const* startProcess = start->GetProcessDefinedStep();
+  G4String const& startProcessName = startProcess? startProcess->GetProcessName(): NoProcess;
+  int startProcessType = startProcess? startProcess->GetProcessType(): -1;
 
   G4StepPoint* end = step->GetPostStepPoint();
   G4ThreeVector endXYZ = end->GetPosition();
   double endX = endXYZ[0];
   double endY = endXYZ[1];
   double endZ = endXYZ[2];
+  G4VProcess const* endProcess = end->GetProcessDefinedStep();
+  G4String const& endProcessName = endProcess? endProcess->GetProcessName(): NoProcess;
+  int endProcessType = endProcess? endProcess->GetProcessType(): -1;
 
   G4Track* tr = step->GetTrack();
   int trID = tr->GetTrackID();
@@ -43,6 +51,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 
   double dE = step->GetTotalEnergyDeposit();
   int cpdg = tr->GetDefinition()->GetPDGEncoding();
+  std::cout << "Pdg: " << cpdg << std::endl;
 
   //if (cpdg==11) std::cout << cpdg << "  " <<  startE << " " << dE << " " << startX << "  " << startY << "  " << startZ << "  " << start->GetMaterial()->GetName() << "  " << start->GetPhysicalVolume()->GetName() << std::endl;
   //std::cout << start->GetPhysicalVolume()->GetName() << "  " << end->GetPhysicalVolume()->GetName() << std::endl;
@@ -60,7 +69,11 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 		 startZ,
 		 endX,
 		 endY,
-		 endZ);
+		 endZ,
+     startProcessName,
+     startProcessType,
+     endProcessName,
+     endProcessType);
 
   /*
   // Drifting charge to channel readout;
