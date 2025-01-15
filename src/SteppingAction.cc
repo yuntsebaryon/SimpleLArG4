@@ -50,6 +50,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
   int motherID = tr->GetParentID();
 
   double dE = step->GetTotalEnergyDeposit();
+  double nonIdE = step->GetNonIonizingEnergyDeposit();
   int cpdg = tr->GetDefinition()->GetPDGEncoding();
   std::cout << "Pdg: " << cpdg << std::endl;
 
@@ -64,6 +65,7 @@ void SteppingAction::UserSteppingAction(const G4Step* step)
 		 motherID,
 		 startE,
 		 dE,
+     nonIdE,
 		 startX,
 		 startY,
 		 startZ,

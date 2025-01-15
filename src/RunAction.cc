@@ -29,6 +29,7 @@ int trackID;
 int motherID;
 double startE;
 double dE;
+double nonIdE;
 double startX;
 double startY;
 double startZ;
@@ -51,6 +52,7 @@ void RunAction::BeginOfRunAction(const G4Run* aRun)
   fEdep->Branch("motherID",&motherID);
   fEdep->Branch("startE",&startE);
   fEdep->Branch("dE",&dE);
+  fEdep->Branch("nonIdE", &nonIdE);
   fEdep->Branch("startX",&startX);
   fEdep->Branch("startY",&startY);
   fEdep->Branch("startZ",&startZ);
@@ -90,6 +92,7 @@ void RunAction::FillTree(int cevent,
 			 int cmotherID,
 			 double cstartE,
 			 double cdE,
+       double cnonIdE,
 			 double cstartX,
 			 double cstartY,
 			 double cstartZ,
@@ -107,6 +110,7 @@ void RunAction::FillTree(int cevent,
   motherID = cmotherID;
   startE = cstartE;
   dE = cdE;
+  nonIdE = cnonIdE;
   startX = cstartX;
   startY = cstartY;
   startZ = cstartZ;
